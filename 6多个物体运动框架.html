@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			div{
+				width: 100px;
+				height: 100px;
+				background: #87CEEB;
+				margin: 10px;
+			}
+		</style>
+		
+		<script type="text/javascript">
+			window.onload=function()
+			{
+				var aDiv=document.getElementsByTagName('div');
+				
+				for(var i=0;i<aDiv.length;i++)			//循环所有的物体div
+				{
+					aDiv[i].timer=null;					//给每个物体都定一个 关闭定时器
+					aDiv[i].onmouseover=function()		//当鼠标移入时
+					{
+						startMove(this,400);			//this当前的物体，400是运动的目标位置
+					}
+					aDiv[i].onmouseout=function()		//当鼠标移出时
+					{
+						startMove(this,100);			//this当前的物体，100是运动的目标位置
+					}
+				}
+			}
+			
+			
+			
+			function startMove(obj,iTarget){								//代表到底要让哪个物体动起来，iTarget目标点
+				clearInterval(obj.timer);									//先请输所有的定时器
+				obj.timer=setInterval(function(){							//开定时器
+					var speed=(iTarget-obj.offsetWidth)/10;					//运动缓冲，速度等于物体到目标点剩余的位置
+					
+					 speed=speed>0?Math.ceil(speed):Math.floor(speed);		//取整
+					 
+					 if(obj.offsetWidth==iTarget)							//判断是否已经运动到目标点
+					 {
+						 clearInterval(obj.timer);							//到目标点清除定时器
+					 }else{
+						 obj.style.width=obj.offsetWidth+speed+'px';		//否则运动到目标点
+					 }
+				},30);
+			}
+		</script>
+	</head>
+	
+	
+	<body>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+	</body>
+</html>
